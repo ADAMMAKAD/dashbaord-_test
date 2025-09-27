@@ -1,0 +1,19 @@
+meta {
+  name: user
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/admin/stats
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1ODk3Njg3MSwiZXhwIjoxNzU5MDYzMjcxfQ.8NPFV9V2HtcVNGJeorKoXu4kwwj8UtjmIjeLc0Sqvh0
+}
+
+settings {
+  encodeUrl: false
+}

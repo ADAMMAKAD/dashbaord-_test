@@ -1,0 +1,34 @@
+# Simple GraphQL schema for the e-commerce app
+
+type Query {
+    products: [Product]
+    product(id: ID!): Product
+    orders: [Order]
+    order(id: ID!): Order
+}
+
+type Mutation {
+    createProduct(name: String!, description: String!, price: Float!): Product
+    createOrder(quantity: Int!): Order
+}
+
+type Product {
+    id: ID!
+    name: String!
+    description: String
+    price: Float!
+}
+
+type Order {
+    id: ID!
+    user: User
+    product: Product
+    quantity: Int!
+    total: Float
+    orderDate: String
+}
+
+type User {
+    id: ID!
+    username: String!
+}
