@@ -175,7 +175,7 @@ const Dashboard = () => {
         </div>
       </div>
       
-      {/* Show error banner if there's an error but we have existing data */}
+      {/* Show error banner if there's an err */}
       {error && orders.length > 0 && (
         <div className="error-banner" style={{
           background: '#fff3cd',

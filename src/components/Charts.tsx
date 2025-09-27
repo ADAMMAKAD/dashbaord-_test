@@ -7,27 +7,23 @@ interface ChartsProps {
 }
 
 const Charts = ({ orders }: ChartsProps) => {
-  // group products by sales count
+  // Calculate product sales data
   const productSales = orders.reduce((acc, order) => {
-    const prodName = order.product.name;
-    if (!acc[prodName]) {
-      acc[prodName] = 0;
-    }
-    acc[prodName] += order.quantity;
+    const productName = order.product.name;
+    acc[productName] = (acc[productName] || 0) + order.quantity;
     return acc;
   }, {} as Record<string, number>);
 
-  // count how many orders each customer has made
+  // Calculate customer order frequency
   const customerOrders = orders.reduce((acc, order) => {
     const username = order.user.username;
     acc[username] = (acc[username] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
 
-  // convert to chart format
-  const chartData = Object.entries(productSales).map(([product, qty]) => ({
+  const chartData = Object.entries(productSales).map(([product, quantity]) => ({
     name: product,
-    count: qty
+    count: quantity
   }));
 
   const customerData = Object.entries(customerOrders).map(([customer, orderCount]) => ({
@@ -35,8 +31,8 @@ const Charts = ({ orders }: ChartsProps) => {
     count: orderCount
   }));
 
-  // some nice colors for the charts
-  const colors = ['#D63C0D', '#00AAC4', '#14094A', '#FF8042', '#8DD1E1'];
+  // Chart color scheme
+  const chartColors = ['#D63C0D', '#00AAC4', '#14094A', '#FF8042', '#8DD1E1'];
 
   return (
     <div className="charts-container">
@@ -68,7 +64,7 @@ const Charts = ({ orders }: ChartsProps) => {
               dataKey="count"
             >
               {customerData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
               ))}
             </Pie>
             <Tooltip />

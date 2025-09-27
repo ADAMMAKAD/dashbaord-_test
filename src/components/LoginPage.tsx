@@ -10,7 +10,7 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation - could be improved
+    // Basic validation 
     if (!username.trim() || !password.trim()) {
       return;
     }
@@ -89,7 +89,7 @@ const LoginPage: React.FC = () => {
 
         {/* Quick demo credentials - remove in production */}
         <div style={{marginTop: '20px', fontSize: '12px', color: '#666'}}>
-          <p>Demo: admin/admin or user/user</p>
+          {/* <p>Demo: admin/admin or user/user</p> */}
         </div>
 
       </div>

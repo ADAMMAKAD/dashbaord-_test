@@ -7,6 +7,7 @@ interface OrdersTableProps {
 }
 
 const OrdersTable = ({ orders, loading }: OrdersTableProps) => {
+  // Quick date formatter
   const formatDt = (dateString: string) => { 
     const dt = new Date(dateString); 
     return dt.toLocaleDateString();
