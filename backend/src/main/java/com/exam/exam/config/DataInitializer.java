@@ -19,45 +19,32 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ProductRepository productRepository;
-
     @Autowired
     private OrderRepository orderRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
         
-        // Initialize default users for the application
-        if (userRepository.findByUsername("admin").isEmpty()) {
-            User adminUser = new User();
-            adminUser.setUsername("admin");
-            adminUser.setPassword(passwordEncoder.encode("admin123"));
-            adminUser.setRole(Role.ADMIN); // Set admin role explicitly
-            userRepository.save(adminUser);
+        // Create some test users
+        if (userRepository.count() == 0) {
+            User admin = new User();
+            admin.setUsername("admin");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setRole(Role.ADMIN);
+            userRepository.save(admin);
+
+            User user = new User(); 
+            user.setUsername("user");
+            user.setPassword(passwordEncoder.encode("user123"));
+            user.setRole(Role.USER);
+            userRepository.save(user);
         }
 
-        if (userRepository.findByUsername("user").isEmpty()) {
-            User usr = new User(); 
-            usr.setUsername("user");
-            usr.setPassword(passwordEncoder.encode("user123")); //  password for demo
-            usr.setRole(Role.USER); // Set user role explicitly
-            userRepository.save(usr);
-        }
-        
-        // Quick test user 
-        if (userRepository.findByUsername("test").isEmpty()) {
-            User testUser = new User();
-            testUser.setUsername("test");
-            testUser.setPassword(passwordEncoder.encode("123456")); // weak password for testing
-            testUser.setRole(Role.USER); // Set user role explicitly
-            userRepository.save(testUser);
-        }
-
+        // Add some products
         if (productRepository.count() == 0) {
             Product prod1 = new Product();
             prod1.setName("phone");
@@ -72,9 +59,10 @@ public class DataInitializer implements CommandLineRunner {
             productRepository.save(prod2);
         }
 
+        // Create some sample orders
         if (orderRepository.count() == 0) {
-            User adminUser = userRepository.findByUsername("admin").orElse(null);
-        User regularUser = userRepository.findByUsername("user").orElse(null);
+            User adminUser = userRepository.findByUname("admin").orElse(null);
+            User regularUser = userRepository.findByUname("user").orElse(null);
             
             if (adminUser != null && regularUser != null) {
                 Product phone = productRepository.findAll().stream()
